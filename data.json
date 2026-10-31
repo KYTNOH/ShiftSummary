@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T20:00",
+ "generated": "2026-10-30T20:09",
  "source": "Shift Summary.xlsx",
  "periods": [
   {
@@ -2459,8 +2459,8 @@
      }
     },
     {
-     "id": "Moore",
-     "label": "Moore",
+     "id": "MOORE",
+     "label": "MOORE",
      "monthly": {
       "shifts": {
        "2025-07": 5,
@@ -2476,8 +2476,33 @@
        "2026-05": 14,
        "2026-06": 15
       },
-      "nights": {},
-      "weekends": {},
+      "nights": {
+       "2025-07": 1,
+       "2025-08": 0,
+       "2025-09": 1,
+       "2025-10": 0,
+       "2025-11": 1,
+       "2025-12": 0,
+       "2026-01": 1,
+       "2026-02": 0,
+       "2026-03": 1,
+       "2026-04": 1,
+       "2026-05": 1,
+       "2026-06": 2
+      },
+      "weekends": {
+       "2025-07": 2,
+       "2025-08": 2,
+       "2025-09": 1,
+       "2025-10": 2,
+       "2025-11": 1,
+       "2025-12": 1,
+       "2026-01": 2,
+       "2026-02": 1,
+       "2026-03": 3,
+       "2026-04": 5,
+       "2026-05": 6
+      },
       "weekendNights": {},
       "early": {
        "2025-07": 2,
@@ -2495,12 +2520,12 @@
      },
      "totals": {
       "shifts": 87,
-      "nights": 0,
-      "weekends": 0,
+      "nights": 9,
+      "weekends": 26,
       "weekendNights": 0,
       "early": 33,
-      "pctNights": 0.0,
-      "pctWeekends": 0.0,
+      "pctNights": 0.1034,
+      "pctWeekends": 0.2989,
       "pctEarly": 0.3793
      }
     },
@@ -2815,52 +2840,6 @@
       "shifts": 0,
       "nights": 0,
       "weekends": 0,
-      "weekendNights": 0,
-      "early": 0,
-      "pctNights": null,
-      "pctWeekends": null,
-      "pctEarly": null
-     }
-    },
-    {
-     "id": "MOORE",
-     "label": "MOORE",
-     "monthly": {
-      "shifts": {},
-      "nights": {
-       "2025-07": 1,
-       "2025-08": 0,
-       "2025-09": 1,
-       "2025-10": 0,
-       "2025-11": 1,
-       "2025-12": 0,
-       "2026-01": 1,
-       "2026-02": 0,
-       "2026-03": 1,
-       "2026-04": 1,
-       "2026-05": 1,
-       "2026-06": 2
-      },
-      "weekends": {
-       "2025-07": 2,
-       "2025-08": 2,
-       "2025-09": 1,
-       "2025-10": 2,
-       "2025-11": 1,
-       "2025-12": 1,
-       "2026-01": 2,
-       "2026-02": 1,
-       "2026-03": 3,
-       "2026-04": 5,
-       "2026-05": 6
-      },
-      "weekendNights": {},
-      "early": {}
-     },
-     "totals": {
-      "shifts": 0,
-      "nights": 9,
-      "weekends": 26,
       "weekendNights": 0,
       "early": 0,
       "pctNights": null,
@@ -4073,8 +4052,8 @@
      }
     },
     {
-     "id": "Moore",
-     "label": "Moore",
+     "id": "MOORE",
+     "label": "MOORE",
      "monthly": {
       "shifts": {
        "2024-07": 15,
@@ -4090,8 +4069,34 @@
        "2025-05": 13,
        "2025-06": 6
       },
-      "nights": {},
-      "weekends": {},
+      "nights": {
+       "2024-07": 2,
+       "2024-08": 2,
+       "2024-09": 2,
+       "2024-10": 2,
+       "2024-11": 1,
+       "2024-12": 1,
+       "2025-01": 2,
+       "2025-02": 1,
+       "2025-03": 1,
+       "2025-04": 2,
+       "2025-05": 1,
+       "2025-06": 1
+      },
+      "weekends": {
+       "2024-07": 5,
+       "2024-08": 5,
+       "2024-09": 5,
+       "2024-10": 4,
+       "2024-11": 5,
+       "2024-12": 4,
+       "2025-01": 4,
+       "2025-02": 4,
+       "2025-03": 5,
+       "2025-04": 4,
+       "2025-05": 5,
+       "2025-06": 2
+      },
       "weekendNights": {},
       "early": {
        "2024-07": 10,
@@ -4110,12 +4115,12 @@
      },
      "totals": {
       "shifts": 158,
-      "nights": 0,
-      "weekends": 0,
+      "nights": 18,
+      "weekends": 52,
       "weekendNights": 0,
       "early": 80,
-      "pctNights": 0.0,
-      "pctWeekends": 0.0,
+      "pctNights": 0.1139,
+      "pctWeekends": 0.3291,
       "pctEarly": 0.5063
      }
     },
@@ -4409,53 +4414,6 @@
       "pctNights": 0.0,
       "pctWeekends": 0.2903,
       "pctEarly": 1.0
-     }
-    },
-    {
-     "id": "MOORE",
-     "label": "MOORE",
-     "monthly": {
-      "shifts": {},
-      "nights": {
-       "2024-07": 2,
-       "2024-08": 2,
-       "2024-09": 2,
-       "2024-10": 2,
-       "2024-11": 1,
-       "2024-12": 1,
-       "2025-01": 2,
-       "2025-02": 1,
-       "2025-03": 1,
-       "2025-04": 2,
-       "2025-05": 1,
-       "2025-06": 1
-      },
-      "weekends": {
-       "2024-07": 5,
-       "2024-08": 5,
-       "2024-09": 5,
-       "2024-10": 4,
-       "2024-11": 5,
-       "2024-12": 4,
-       "2025-01": 4,
-       "2025-02": 4,
-       "2025-03": 5,
-       "2025-04": 4,
-       "2025-05": 5,
-       "2025-06": 2
-      },
-      "weekendNights": {},
-      "early": {}
-     },
-     "totals": {
-      "shifts": 0,
-      "nights": 18,
-      "weekends": 52,
-      "weekendNights": 0,
-      "early": 0,
-      "pctNights": null,
-      "pctWeekends": null,
-      "pctEarly": null
      }
     }
    ]
@@ -5663,8 +5621,8 @@
      }
     },
     {
-     "id": "Moore",
-     "label": "Moore",
+     "id": "MOORE",
+     "label": "MOORE",
      "monthly": {
       "shifts": {
        "2023-07": 0,
@@ -5680,8 +5638,14 @@
        "2024-05": 3,
        "2024-06": 14
       },
-      "nights": {},
-      "weekends": {},
+      "nights": {
+       "2024-05": 0,
+       "2024-06": 2
+      },
+      "weekends": {
+       "2024-05": 0,
+       "2024-06": 6
+      },
       "weekendNights": {},
       "early": {
        "2023-07": 6,
@@ -5700,12 +5664,12 @@
      },
      "totals": {
       "shifts": 24,
-      "nights": 0,
-      "weekends": 0,
+      "nights": 2,
+      "weekends": 6,
       "weekendNights": 0,
       "early": 41,
-      "pctNights": 0.0,
-      "pctWeekends": 0.0,
+      "pctNights": 0.0833,
+      "pctWeekends": 0.25,
       "pctEarly": 1.7083
      }
     },
@@ -5874,33 +5838,6 @@
       "pctNights": 0.0,
       "pctWeekends": 0.0,
       "pctEarly": 1.0
-     }
-    },
-    {
-     "id": "MOORE",
-     "label": "MOORE",
-     "monthly": {
-      "shifts": {},
-      "nights": {
-       "2024-05": 0,
-       "2024-06": 2
-      },
-      "weekends": {
-       "2024-05": 0,
-       "2024-06": 6
-      },
-      "weekendNights": {},
-      "early": {}
-     },
-     "totals": {
-      "shifts": 0,
-      "nights": 2,
-      "weekends": 6,
-      "weekendNights": 0,
-      "early": 0,
-      "pctNights": null,
-      "pctWeekends": null,
-      "pctEarly": null
      }
     }
    ]
@@ -11911,13 +11848,6 @@
    "name": "MOOREFIELD",
    "aliases": [
     "MOOREFIELD"
-   ]
-  },
-  {
-   "id": "Moore",
-   "name": "Moore",
-   "aliases": [
-    "Moore"
    ]
   },
   {
