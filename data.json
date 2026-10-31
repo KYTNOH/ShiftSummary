@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30T19:37",
+ "generated": "2026-10-30T20:00",
  "source": "Shift Summary.xlsx",
  "periods": [
   {
@@ -815,8 +815,8 @@
      }
     },
     {
-     "id": "Moore",
-     "label": "Moore",
+     "id": "MOORE",
+     "label": "MOORE",
      "monthly": {
       "shifts": {
        "2026-07": 13,
@@ -826,8 +826,22 @@
        "2026-11": 12,
        "2026-12": 13
       },
-      "nights": {},
-      "weekends": {},
+      "nights": {
+       "2026-07": 2,
+       "2026-08": 3,
+       "2026-09": 2,
+       "2026-10": 3,
+       "2026-11": 3,
+       "2026-12": 2
+      },
+      "weekends": {
+       "2026-07": 4,
+       "2026-08": 6,
+       "2026-09": 4,
+       "2026-10": 5,
+       "2026-11": 5,
+       "2026-12": 4
+      },
       "weekendNights": {},
       "early": {
        "2026-07": 6,
@@ -840,12 +854,12 @@
      },
      "totals": {
       "shifts": 79,
-      "nights": 0,
-      "weekends": 0,
+      "nights": 15,
+      "weekends": 28,
       "weekendNights": 0,
       "early": 40,
-      "pctNights": 0.0,
-      "pctWeekends": 0.0,
+      "pctNights": 0.1899,
+      "pctWeekends": 0.3544,
       "pctEarly": 0.5063
      }
     },
@@ -1282,41 +1296,6 @@
       "pctNights": 0.0,
       "pctWeekends": 0.0476,
       "pctEarly": 0.2381
-     }
-    },
-    {
-     "id": "MOORE",
-     "label": "MOORE",
-     "monthly": {
-      "shifts": {},
-      "nights": {
-       "2026-07": 2,
-       "2026-08": 3,
-       "2026-09": 2,
-       "2026-10": 3,
-       "2026-11": 3,
-       "2026-12": 2
-      },
-      "weekends": {
-       "2026-07": 4,
-       "2026-08": 6,
-       "2026-09": 4,
-       "2026-10": 5,
-       "2026-11": 5,
-       "2026-12": 4
-      },
-      "weekendNights": {},
-      "early": {}
-     },
-     "totals": {
-      "shifts": 0,
-      "nights": 15,
-      "weekends": 28,
-      "weekendNights": 0,
-      "early": 0,
-      "pctNights": null,
-      "pctWeekends": null,
-      "pctEarly": null
      }
     }
    ]
