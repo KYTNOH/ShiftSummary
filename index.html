@@ -6,7 +6,11 @@
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--ink:#0f2236;--mute:#64748b;--line:#e2e8f0;--pri:#0b5cad;--pri2:#0e7490;--acc:#e11d48;--night:#4338ca;--we:#0891b2;--early:#d97706}
 *{box-sizing:border-box}body{margin:0;font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--ink)}
-header{background:linear-gradient(120deg,#0b3b6f,#0b5cad 55%,#0e7490);color:#fff;padding:22px 20px 70px}
+header{position:relative;color:#fff;min-height:300px;padding:28px 20px 70px;display:flex;align-items:flex-end;overflow:hidden;background:#0b3b6f}
+header .hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 66%}
+header::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,24,48,.88) 0%,rgba(6,24,48,.55) 45%,rgba(6,24,48,.15) 100%),linear-gradient(0deg,rgba(6,24,48,.85) 0%,rgba(6,24,48,0) 55%)}
+header .wrap{position:relative;z-index:1;width:100%}header h1{text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.credit{position:absolute;right:12px;top:10px;z-index:1;font-size:11px;opacity:.75}
 .wrap{max-width:1180px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:10px;background:#fff;color:var(--acc);display:grid;place-items:center;font-weight:900;font-size:24px}
 h1{margin:0;font-size:22px;letter-spacing:.2px}.sub{opacity:.8;font-size:13px}
@@ -34,10 +38,10 @@ tbody tr{cursor:pointer}tbody tr:hover{background:#f1f6fd}
 @media(min-width:760px){#detail{align-items:center}#detail .sheet{border-radius:20px}}
 .close{float:right;border:0;background:#f1f5f9;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
 footer{text-align:center;color:var(--mute);font-size:12px;padding:20px}
-@media(max-width:760px){main{padding:0 10px 30px}.card{padding:14px}th,td{font-size:13px}.hide-xs{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.kpis>.kpi:nth-child(5):last-child{grid-column:span 2}.sub-pct{display:block}#tbody td,thead th{padding:9px 5px}thead th{font-size:11px}.bar-in{max-width:90px}.grid2{grid-template-columns:1fr}.kpi .v{font-size:22px}h1{font-size:18px}
+@media(max-width:760px){header{min-height:220px;padding:20px 14px 62px}header .hero{object-position:62% 68%}.credit{display:none}main{padding:0 10px 30px}.card{padding:14px}th,td{font-size:13px}.hide-xs{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.kpis>.kpi:nth-child(5):last-child{grid-column:span 2}.sub-pct{display:block}#tbody td,thead th{padding:9px 5px}thead th{font-size:11px}.bar-in{max-width:90px}.grid2{grid-template-columns:1fr}.kpi .v{font-size:22px}h1{font-size:18px}
  .hide-sm{display:none}th,td{padding:9px 6px}}
 </style></head><body>
-<header><div class="wrap">
+<header><img class="hero" src="header.jpg" alt="Aerial view of TriStar Skyline Medical Center with its helipads" fetchpriority="high"><span class="credit">TriStar Skyline Medical Center</span><div class="wrap">
  <div class="brand"><div class="logo">+</div><div><h1>Skyline ER Physician Group</h1><div class="sub">Shift count dashboard · read-only</div></div></div>
  <div class="bar"><div style="display:flex;gap:8px;flex-wrap:wrap">
   <select id="period" aria-label="Scheduling year"></select>
