@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skyline ER · Shift Counts</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#0f2236;--mute:#64748b;--line:#e2e8f0;--pri:#0b5cad;--pri2:#0e7490;--acc:#e11d48;--night:#4338ca;--we:#0891b2;--early:#d97706}
+*{box-sizing:border-box}body{margin:0;font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(120deg,#0b3b6f,#0b5cad 55%,#0e7490);color:#fff;padding:22px 20px 70px}
+.wrap{max-width:1180px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:10px;background:#fff;color:var(--acc);display:grid;place-items:center;font-weight:900;font-size:24px}
+h1{margin:0;font-size:22px;letter-spacing:.2px}.sub{opacity:.8;font-size:13px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:18px}
+select,input{font:inherit;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff}
+select option{color:#000}input::placeholder{color:#dbeafe}
+.badge{font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.18)}
+main{margin-top:-50px;padding:0 16px 40px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid2>*,.kpis>*{min-width:0}body{overflow-x:hidden}
+.card{background:var(--card);border-radius:16px;box-shadow:0 4px 18px rgba(15,34,54,.07);padding:18px}
+.kpi .v{font-size:28px;font-weight:750}.kpi .l{color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:14px}
+h2{font-size:15px;margin:0 0 12px}.chartbox{position:relative;height:260px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{font-size:12px;color:var(--mute);text-transform:uppercase;cursor:pointer;user-select:none;position:sticky;top:0;background:#fff}
+th.sorted::after{content:" ▾"}th.sorted.asc::after{content:" ▴"}
+tbody tr{cursor:pointer}tbody tr:hover{background:#f1f6fd}
+.name{font-weight:600;color:var(--pri)}.bar-in{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--pri),var(--pri2));margin-top:4px}
+.tablewrap{overflow-x:auto;margin-top:14px}.muted{color:var(--mute)}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#eef2ff;color:var(--night)}
+#detail{position:fixed;inset:0;background:rgba(15,34,54,.45);display:none;align-items:flex-end;justify-content:center;z-index:9}
+#detail.open{display:flex}#detail .sheet{background:#fff;width:min(900px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px}
+@media(min-width:760px){#detail{align-items:center}#detail .sheet{border-radius:20px}}
+.close{float:right;border:0;background:#f1f5f9;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer}
+footer{text-align:center;color:var(--mute);font-size:12px;padding:20px}
+@media(max-width:760px){main{padding:0 10px 30px}.card{padding:14px}th,td{font-size:13px}.hide-xs{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.kpi .v{font-size:22px}h1{font-size:18px}
+ .hide-sm{display:none}th,td{padding:9px 6px}}
+</style></head><body>
+<header><div class="wrap">
+ <div class="brand"><div class="logo">+</div><div><h1>Skyline ER Physician Group</h1><div class="sub">Shift count dashboard · read-only</div></div></div>
+ <div class="bar"><div style="display:flex;gap:8px;flex-wrap:wrap">
+  <select id="period" aria-label="Scheduling year"></select>
+  <input id="q" placeholder="Search physician…" aria-label="Search">
+ </div><span class="badge" id="status"></span></div>
+</div></header>
+<main class="wrap">
+ <section class="kpis">
+  <div class="card kpi"><div class="l">Total shifts</div><div class="v" id="k1">–</div></div>
+  <div class="card kpi"><div class="l">Physicians</div><div class="v" id="k2">–</div></div>
+  <div class="card kpi"><div class="l">Overnights</div><div class="v" id="k3">–</div></div>
+  <div class="card kpi"><div class="l">Weekend shifts</div><div class="v" id="k4">–</div></div>
+ </section>
+ <section class="grid2">
+  <div class="card"><h2>Shifts by physician</h2><div class="chartbox"><canvas id="cBar"></canvas></div></div>
+  <div class="card"><h2>Group shifts by month</h2><div class="chartbox"><canvas id="cMonth"></canvas></div></div>
+ </section>
+ <section class="card tablewrap"><h2>Group shift counts <span class="muted" style="font-weight:400;font-size:12px">· tap a column to sort, a name for history</span></h2>
+  <table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table></section>
+</main>
+<div id="detail" role="dialog"><div class="sheet"><button class="close" onclick="closeD()">×</button><div id="dbody"></div>
+ <div class="chartbox" style="height:240px;margin:14px 0"><canvas id="cHist"></canvas></div>
+ <div class="tablewrap"><table id="dtable"></table></div></div></div>
+<footer id="foot"></footer>
+<script>
+const $=id=>document.getElementById(id),fmt=n=>n==null?'–':n.toLocaleString(),pct=n=>n==null?'–':(n*100).toFixed(0)+'%';
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],ml=s=>MN[+s.slice(5)-1]+" '"+s.slice(2,4);
+const title=s=>s;
+const COLS=[['label','Physician'],['shifts','Shifts'],['nights','Nights'],['pctNights','% Nights'],['weekends','Weekends'],['pctWeekends','% WE'],['early','Early'],['pctEarly','% Early']];
+let D,P,sortK='shifts',asc=false,charts={};
+function chart(id,cfg){charts[id]&&charts[id].destroy();if(window.Chart)charts[id]=new Chart($(id),cfg)}
+fetch('data.json').then(r=>r.json()).then(d=>{D=d;
+ $('period').innerHTML=d.periods.map((p,i)=>`<option value="${i}">${p.label} (Jul–Jun)${p.inProgress?' · in progress':''}</option>`).join('');
+ $('period').onchange=render;$('q').oninput=table;$('foot').textContent=`Source: ${d.source} · data built ${d.generated}`;render()});
+function render(){P=D.periods[$('period').value];
+ const rows=P.physicians.filter(x=>x.totals.shifts>0),t=k=>rows.reduce((a,x)=>a+x.totals[k],0);
+ $('k1').textContent=fmt(t('shifts'));$('k2').textContent=rows.length;$('k3').textContent=fmt(t('nights'));$('k4').textContent=fmt(t('weekends'));
+ const m=P.monthsWithData;$('status').textContent=P.inProgress?`Through ${ml(m[m.length-1])} · ${m.length} of ${P.months.length} months`:`${ml(P.months[0])} – ${ml(P.months.at(-1))}`;
+ const s=[...rows].sort((a,b)=>b.totals.shifts-a.totals.shifts);
+ chart('cBar',{type:'bar',data:{labels:s.map(x=>title(x.id)),datasets:[
+  {label:'Nights',data:s.map(x=>x.totals.nights),backgroundColor:'#4338ca'},
+  {label:'Other',data:s.map(x=>x.totals.shifts-x.totals.nights),backgroundColor:'#60a5fa'}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true,ticks:{autoSkip:false,maxRotation:70,font:{size:10}}},y:{stacked:true}}}});
+ const sum=k=>P.months.map(mm=>!P.monthsWithData.includes(mm)?null:rows.reduce((a,x)=>a+(x.monthly[k][mm]||0),0));
+ chart('cMonth',{type:'line',data:{labels:P.months.map(ml),datasets:[
+  {label:'Shifts',data:sum('shifts'),borderColor:'#0b5cad',backgroundColor:'rgba(11,92,173,.12)',fill:true,tension:.3},
+  {label:'Weekends',data:sum('weekends'),borderColor:'#0891b2',tension:.3},{label:'Nights',data:sum('nights'),borderColor:'#4338ca',tension:.3}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+ table()}
+function table(){const q=$('q').value.toLowerCase(),mx=Math.max(...P.physicians.map(x=>x.totals.shifts),1);
+ $('thead').innerHTML=COLS.map(([k,l],i)=>`<th data-k="${k}" class="${k===sortK?'sorted'+(asc?' asc':''):''} ${i>4&&k.startsWith('pct')?'hide-sm':''}">${l}</th>`).join('');
+ [...$('thead').children].forEach(th=>th.onclick=()=>{const k=th.dataset.k;asc=sortK===k?!asc:k==='label';sortK=k;table()});
+ const v=x=>sortK==='label'?x.id:x.totals[sortK]??-1;
+ const rows=P.physicians.filter(x=>x.id.toLowerCase().includes(q)).sort((a,b)=>(v(a)>v(b)?1:v(a)<v(b)?-1:0)*(asc?1:-1));
+ $('tbody').innerHTML=rows.map(x=>{const t=x.totals;return `<tr onclick='openD(${JSON.stringify(x.id)})'><td><div class="name">${title(x.id)}</div><div class="bar-in" style="width:${t.shifts/mx*100}%"></div></td>
+ <td><b>${fmt(t.shifts)}</b></td><td>${fmt(t.nights)}</td><td>${pct(t.pctNights)}</td><td>${fmt(t.weekends)}</td><td class="hide-sm">${pct(t.pctWeekends)}</td><td>${t.pctEarly==null?'–':fmt(t.early)}</td><td class="hide-sm">${pct(t.pctEarly)}</td></tr>`}).join('')}
+function openD(id){const hist=D.periods.slice().reverse().map(p=>({p,x:p.physicians.find(y=>y.id===id)})).filter(h=>h.x);
+ const cur=P.physicians.find(y=>y.id===id);
+ $('dbody').innerHTML=`<h2 style="font-size:20px">${title(id)}</h2><div class="muted">${hist.length} scheduling year(s) on record · selected ${P.label}</div>`+
+  (cur?`<div class="kpis" style="margin-top:12px">${[['Shifts',cur.totals.shifts],['Nights',cur.totals.nights],['Weekends',cur.totals.weekends],['% Nights',pct(cur.totals.pctNights)]].map(([l,v])=>`<div class="card kpi" style="box-shadow:none;background:#f8fafc"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('')}</div>`:'');
+ chart('cHist',{type:'bar',data:{labels:hist.map(h=>h.p.label+(h.p.inProgress?'*':'')),datasets:[
+  {label:'Shifts',data:hist.map(h=>h.x.totals.shifts),backgroundColor:'#0b5cad'},{label:'Weekends',data:hist.map(h=>h.x.totals.weekends),backgroundColor:'#0891b2'},
+  {label:'Nights',data:hist.map(h=>h.x.totals.nights),backgroundColor:'#4338ca'}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+ $('dtable').innerHTML='<thead><tr><th>Year</th><th>Shifts</th><th>Nights</th><th>% Nights</th><th>Weekends</th><th>Early</th></tr></thead><tbody>'+
+  hist.slice().reverse().map(h=>{const t=h.x.totals;return `<tr style="cursor:default"><td>${h.p.label}${h.p.inProgress?' <span class="pill">in progress</span>':''}</td><td><b>${t.shifts}</b></td><td>${t.nights}</td><td>${pct(t.pctNights)}</td><td>${t.weekends}</td><td>${t.pctEarly==null?'–':t.early}</td></tr>`}).join('')+'</tbody>';
+ $('detail').classList.add('open')}
+function closeD(){$('detail').classList.remove('open')}
+$('detail').onclick=e=>{if(e.target.id==='detail')closeD()};
+</script></body></html>
