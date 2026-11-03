@@ -2,7 +2,8 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Skyline ER · Shift Counts</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+</script>
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--ink:#0f2236;--mute:#64748b;--line:#e2e8f0;--pri:#0b5cad;--pri2:#0e7490;--acc:#e11d48;--night:#4338ca;--we:#0891b2;--early:#d97706}
 *{box-sizing:border-box}body{margin:0;font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--ink)}
@@ -40,6 +41,7 @@ tbody tr{cursor:pointer}tbody tr:hover{background:#f1f6fd}
 footer{text-align:center;color:var(--mute);font-size:12px;padding:20px}
 @media(max-width:760px){header{min-height:220px;padding:20px 14px 62px}header .hero{object-position:62% 68%}.credit{display:none}main{padding:0 10px 30px}.card{padding:14px}th,td{font-size:13px}.hide-xs{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.kpis>.kpi:nth-child(5):last-child{grid-column:span 2}.sub-pct{display:block}#tbody td,thead th{padding:9px 5px}thead th{font-size:11px}.bar-in{max-width:90px}.grid2{grid-template-columns:1fr}.kpi .v{font-size:22px}h1{font-size:18px}
  .hide-sm{display:none}th,td{padding:9px 6px}}
+.ptabs{display:flex;gap:4px;background:#eef2f7;padding:3px;border-radius:999px}.ptabs button{border:0;background:none;padding:6px 14px;border-radius:999px;font:inherit;font-size:13px;color:var(--mute);cursor:pointer}.ptabs button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 </style></head><body>
 <header><img class="hero" src="header.jpg" alt="Aerial view of TriStar Skyline Medical Center with its helipads" fetchpriority="high"><span class="credit">TriStar Skyline Medical Center</span><div class="wrap">
  <div class="brand"><div class="logo">+</div><div><h1>Skyline ER Physician Group</h1><div class="sub">Shift count dashboard · read-only</div></div></div>
@@ -60,6 +62,7 @@ footer{text-align:center;color:var(--mute);font-size:12px;padding:20px}
   <div class="card"><h2>Shifts by physician</h2><div class="chartbox"><canvas id="cBar"></canvas></div></div>
   <div class="card"><h2>Group shifts by month</h2><div class="chartbox"><canvas id="cMonth"></canvas></div></div>
  </section>
+ <section class="card"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><h2 style="margin:0">Share of each physician's shifts</h2><div id="ptabs" class="ptabs"><button data-k="pctNights" class="on">Nights</button><button data-k="pctWeekends">Weekends</button><button data-k="pctEarly">Mornings</button></div></div><div class="chartbox" style="height:340px"><canvas id="cPct"></canvas></div></section>
  <section class="card tablewrap"><h2>Group shift counts <span class="muted" style="font-weight:400;font-size:12px">· tap a column to sort, a name for history</span></h2>
   <table><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table></section>
 </main>
@@ -89,6 +92,7 @@ function render(){P=D.periods[$('period').value];
   {label:'Nights',data:s.map(x=>x.totals.nights),backgroundColor:'#4338ca'},
   {label:'Other',data:s.map(x=>x.totals.shifts-x.totals.nights),backgroundColor:'#60a5fa'}]},
   options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true,ticks:{autoSkip:false,maxRotation:70,font:{size:10}}},y:{stacked:true}}}});
+ window._pctRows=rows;drawPct();
  const sum=k=>P.months.map(mm=>!P.monthsWithData.includes(mm)?null:rows.reduce((a,x)=>a+(x.monthly[k][mm]||0),0));
  chart('cMonth',{type:'line',data:{labels:P.months.map(ml),datasets:[
   {label:'Shifts',data:sum('shifts'),borderColor:'#0b5cad',backgroundColor:'rgba(11,92,173,.12)',fill:true,tension:.3},
@@ -114,4 +118,12 @@ function openD(id){const hist=D.periods.slice().reverse().map(p=>({p,x:p.physici
  $('detail').classList.add('open')}
 function closeD(){$('detail').classList.remove('open')}
 $('detail').onclick=e=>{if(e.target.id==='detail')closeD()};
+let PK='pctNights';const PC={pctNights:['Nights','#4338ca'],pctWeekends:['Weekends','#0891b2'],pctEarly:['Mornings','#d97706']};
+function drawPct(){const r=(window._pctRows||[]).filter(x=>x.totals[PK]!=null&&x.totals.shifts>0).sort((a,b)=>b.totals[PK]-a.totals[PK]);
+ const tot=r.reduce((a,x)=>a+x.totals.shifts,0),num=r.reduce((a,x)=>a+x.totals[PK]*x.totals.shifts,0),avg=tot?num/tot*100:0;
+ chart('cPct',{type:'bar',data:{labels:r.map(x=>title(x.id)),datasets:[{label:'% '+PC[PK][0],data:r.map(x=>+(x.totals[PK]*100).toFixed(1)),backgroundColor:PC[PK][1]},
+  {type:'line',label:'Group avg '+avg.toFixed(0)+'%',data:r.map(()=>+avg.toFixed(1)),borderColor:'#e11d48',borderDash:[6,4],pointRadius:0,borderWidth:2}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},scales:{x:{ticks:{autoSkip:false,maxRotation:70,font:{size:10}}},y:{beginAtZero:true,ticks:{callback:v=>v+'%'}}}}});}
+document.querySelectorAll('#ptabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#ptabs button').forEach(x=>x.classList.toggle('on',x===b));PK=b.dataset.k;drawPct();});
+{const h=location.hash.slice(1),b=document.querySelector(`#ptabs button[data-k=${h}]`);if(b)PK=h,document.querySelectorAll('#ptabs button').forEach(x=>x.classList.toggle('on',x===b));}
 </script></body></html>
