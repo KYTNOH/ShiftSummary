@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T16:32",
+ "generated": "2026-11-04T23:38",
  "source": "Shift Summary.xlsx",
  "periods": [
   {
@@ -784,7 +784,7 @@
        "2026-10": 16,
        "2026-11": 16,
        "2026-12": 17,
-       "2027-01": 17
+       "2027-01": 18
       },
       "nights": {
        "2026-07": 2,
@@ -816,14 +816,14 @@
       }
      },
      "totals": {
-      "shifts": 111,
+      "shifts": 112,
       "nights": 19,
       "weekends": 37,
       "weekendNights": 0,
       "early": 44,
-      "pctNights": 0.1712,
-      "pctWeekends": 0.3333,
-      "pctEarly": 0.3964
+      "pctNights": 0.1696,
+      "pctWeekends": 0.3304,
+      "pctEarly": 0.3929
      }
     },
     {
@@ -1163,7 +1163,7 @@
        "2026-09": 0,
        "2026-10": 0,
        "2026-11": 0,
-       "2026-12": 2,
+       "2026-12": 0,
        "2027-01": 0
       },
       "weekends": {
@@ -1172,7 +1172,7 @@
        "2026-09": 0,
        "2026-10": 0,
        "2026-11": 0,
-       "2026-12": 4,
+       "2026-12": 0,
        "2027-01": 0
       },
       "weekendNights": {},
@@ -1188,12 +1188,12 @@
      },
      "totals": {
       "shifts": 9,
-      "nights": 2,
-      "weekends": 4,
+      "nights": 0,
+      "weekends": 0,
       "weekendNights": 0,
       "early": 4,
-      "pctNights": 0.2222,
-      "pctWeekends": 0.4444,
+      "pctNights": 0.0,
+      "pctWeekends": 0.0,
       "pctEarly": 0.4444
      }
     },
@@ -1261,7 +1261,7 @@
        "2026-10": 13,
        "2026-11": 13,
        "2026-12": 12,
-       "2027-01": 13
+       "2027-01": 14
       },
       "nights": {
        "2026-07": 0,
@@ -1288,19 +1288,19 @@
        "2026-09": 5,
        "2026-10": 6,
        "2026-11": 5,
-       "2026-12": 5,
+       "2026-12": 6,
        "2027-01": 6
       }
      },
      "totals": {
-      "shifts": 75,
+      "shifts": 76,
       "nights": 15,
       "weekends": 29,
       "weekendNights": 0,
-      "early": 34,
-      "pctNights": 0.2,
-      "pctWeekends": 0.3867,
-      "pctEarly": 0.4533
+      "early": 35,
+      "pctNights": 0.1974,
+      "pctWeekends": 0.3816,
+      "pctEarly": 0.4605
      }
     },
     {
